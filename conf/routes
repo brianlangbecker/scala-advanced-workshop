@@ -1,0 +1,4 @@
+GET     /year                   controllers.YearController.year
+GET     /year/actor             controllers.YearController.yearFromActor
+GET     /year/stream            controllers.YearController.yearFromStream
+GET     /health                 controllers.YearController.health

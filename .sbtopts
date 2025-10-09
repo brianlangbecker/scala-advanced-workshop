@@ -1,0 +1,4 @@
+-J--add-opens=java.base/java.lang=ALL-UNNAMED
+-J--add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+-J--add-opens=java.base/java.util=ALL-UNNAMED
+-J-javaagent:opentelemetry-javaagent.jar

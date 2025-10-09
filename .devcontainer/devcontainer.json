@@ -1,0 +1,17 @@
+{
+  "name": "Play + Pekko + OpenTelemetry",
+  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "forwardPorts": [9000, 4318, 16686],
+  "postCreateCommand": "curl -fsSL https://github.com/sbt/sbt/releases/download/v1.9.7/sbt-1.9.7.tgz | tar xz -C /tmp && sudo mv /tmp/sbt /usr/local/",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "scala-lang.scala",
+        "scalameta.metals"
+      ]
+    }
+  }
+}
