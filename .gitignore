@@ -1,0 +1,38 @@
+# SBT and Scala
+target/
+lib_managed/
+src_managed/
+project/target/
+project/project/
+.cache/
+.history/
+dist/
+logs/
+out/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# VS Code
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Metals (Scala language server)
+.metals/
+.bloop/
+.ammonite/
+
+# Others
+*.log
+*.tmp
+*.bak
+*.swp
