@@ -1,6 +1,6 @@
 # [Choice] Java version: 11, 15
 ARG VARIANT=11
-FROM mcr.microsoft.com/vscode/devcontainers/java:${VARIANT}
+FROM sbtscala/scala-sbt:eclipse-temurin-jammy-21.0.5_11_1.10.6_3.5.2
 
 # [Option] Install Maven
 ARG INSTALL_MAVEN="false"
