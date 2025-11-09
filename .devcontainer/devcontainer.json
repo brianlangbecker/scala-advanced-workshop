@@ -8,40 +8,38 @@
 			// Options
 			"INSTALL_MAVEN": "true",
 			"INSTALL_GRADLE": "false",
-			"INSTALL_NODE": "false",
-			"NODE_VERSION": "lts/*",
+			"INSTALL_NODE": "true",
+			"NODE_VERSION": "20.x",
 			"INSTALL_SBT": "true"
 		}
 	},
-	// Set *default* container specific settings.json values on container create.
 	"customizations": {
 		"vscode": {
 			"settings": {
-				"terminal.integrated.profiles.linux": {
-					"bash": {
-						"path": "/bin/bash"
-					},
-					"sbt": {
-						"path": "/bin/bash",
-						"args": [
-							"sbt"
-						]
+				// ...existing settings...
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"java.jdt.ls.java.home": "/docker-java-home",
+				"mcpServers": {
+					"honeycomb": {
+						"url": "https://mcp.honeycomb.io/mcp"
 					}
 				},
-				"terminal.integrated.defaultProfile.linux": "bash",
-			"java.jdt.ls.java.home": "/docker-java-home"
+				// Changed: use a string value (one of "none","registry","all")
+				"chat.mcp.access": "all"
 			},
 			"extensions": [
 				"vscjava.vscode-java-pack",
 				"scalameta.metals"
-            ]
+			]
 		}
 	},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	 "forwardPorts": [9000],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "java -version",
+	"forwardPorts": [
+		9000,
+		3705
+	],
+	// Run these after container create to verify Node/npm/npx are present (doesn't fail build because of '|| true')
+	"postCreateCommand": "node --version && npm --version && npx --version || true"
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	//"remoteUser": "vscode"
 }

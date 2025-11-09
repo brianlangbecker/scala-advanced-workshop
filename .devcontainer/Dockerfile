@@ -13,9 +13,20 @@ RUN if [ "${INSTALL_MAVEN}" = "true" ]; then su vscode -c "umask 0002 && . /usr/
     && if [ "${INSTALL_GRADLE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/sdkman/bin/sdkman-init.sh && sdk install gradle \"${GRADLE_VERSION}\""; fi
 
 # [Option] Install Node.js
+# Default to Node 18 LTS; set INSTALL_NODE to "false" to skip during build.
 ARG INSTALL_NODE="true"
-ARG NODE_VERSION="lts/*"
-RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
+ARG NODE_VERSION="20.x"
+RUN if [ "${INSTALL_NODE}" = "true" ]; then \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && apt-get install -y --no-install-recommends curl ca-certificates gnupg dirmngr && \
+    curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION}" | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    # Install npx for compatibility (install under /usr/local for global access)
+    npm install -g npx@latest || true && \
+    # verify installation
+    node --version && npm --version && (command -v npx || echo "npx not found") || echo "node installation failed" && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*; \
+    fi
 
 # [Option] Install sbt
 # Install sbt using the official Debian repository method
