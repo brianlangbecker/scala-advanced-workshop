@@ -4,12 +4,12 @@ This workshop demonstrates OpenTelemetry instrumentation in a Scala application 
 
 ## What You'll Learn
 
-1. **Manual span creation** - Creating spans programmatically
-2. **Automatic instrumentation** - Using `@WithSpan` annotations
-3. **Span attributes** - Adding metadata to traces
-4. **Error handling** - Recording exceptions and error status
-5. **Async instrumentation** - Tracing Pekko actors
-6. **Stream instrumentation** - Tracing Pekko Streams
+1. **Manual span creation** - Creating spans programmatically → [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L35)
+2. **Automatic instrumentation** - Using `@WithSpan` annotations → [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L194)
+3. **Span attributes** - Adding metadata to traces → [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L43)
+4. **Error handling** - Recording exceptions and error status → [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L60)
+5. **Async instrumentation** - Tracing Pekko actors → [`app/actors/YearActor.scala`](app/actors/YearActor.scala#L24)
+6. **Stream instrumentation** - Tracing Pekko Streams → [`app/streams/YearStreamProcessor.scala`](app/streams/YearStreamProcessor.scala#L19)
 
 ## Quick Start in Codespaces
 
@@ -40,7 +40,7 @@ Wait for "Server started" message, then the app will be at http://localhost:9000
 
 ### 4. Generate Traces
 
-Open another terminal and run:
+Open another terminal and run. Note the port maybe 9001.
 
 ```bash
 # Simple synchronous endpoint
@@ -86,6 +86,7 @@ curl http://localhost:9000/health
 ## Key Concepts Demonstrated
 
 ### 1. Manual Span Creation
+See: [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L35)
 
 ```scala
 val span = tracer.spanBuilder("operation-name")
@@ -100,6 +101,7 @@ try {
 ```
 
 ### 2. Span Attributes
+See: [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L43)
 
 ```scala
 span.setAttribute("key", "value")
@@ -107,6 +109,7 @@ span.setAttribute("count", 42)
 ```
 
 ### 3. Error Recording
+See: [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L60)
 
 ```scala
 catch {
@@ -119,9 +122,9 @@ catch {
 ### 4. Async Context Propagation
 
 The example shows how spans propagate through:
-- Futures (Play controllers)
-- Actor messages (Pekko)
-- Stream operations (Pekko Streams)
+- Futures (Play controllers) → [`app/controllers/YearController.scala`](app/controllers/YearController.scala#L70)
+- Actor messages (Pekko) → [`app/actors/YearActor.scala`](app/actors/YearActor.scala#L24)
+- Stream operations (Pekko Streams) → [`app/streams/YearStreamProcessor.scala`](app/streams/YearStreamProcessor.scala#L19)
 
 ## Workshop Exercises
 
